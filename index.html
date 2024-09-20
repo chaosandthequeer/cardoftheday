@@ -16,11 +16,27 @@
       height: auto;
       margin-top: 20px;
     }
+    button {
+      padding: 10px 20px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
   </style>
 </head>
 <body>
   <h1>Card of the Day</h1>
   <img id="cardImage" src="" alt="Card Image">
+  <br>
+  <button id="newCardButton">Generate Another Card</button>
+
   <script>
     // Base URL for the images hosted on GitHub
     const baseURL = "https://github.com/chaosandthequeer/cardoftheday/raw/main/images/oh-shit-oracle";
@@ -28,11 +44,21 @@
     // Function to generate a random card image URL
     function getRandomCard() {
       const randomNumber = Math.floor(Math.random() * 76) + 1;  // Random number between 1 and 76
-      return `${baseURL}${randomNumber}.png`;  // Returns the full URL of the random card
+      const imageURL = `${baseURL}${randomNumber}.png`;  // Construct the full URL of the random card
+      console.log("Random Image URL: ", imageURL);  // Log the image URL for debugging
+      return imageURL;
     }
 
-    // Set the card image source to a random card
-    document.getElementById('cardImage').src = getRandomCard();
+    // Function to update the image on the page
+    function updateCardImage() {
+      document.getElementById('cardImage').src = getRandomCard();
+    }
+
+    // Initial load
+    updateCardImage();
+
+    // Event listener for the button to generate a new card
+    document.getElementById('newCardButton').addEventListener('click', updateCardImage);
   </script>
 </body>
 </html>
